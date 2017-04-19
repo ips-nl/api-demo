@@ -1,9 +1,10 @@
 <?php
+require("includes/config.php");
 
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => "https://mijn.ips.nl/api/v1/authenticate",
+  CURLOPT_URL => API_URL.API_VERSION."/authenticate",
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => "",
   CURLOPT_MAXREDIRS => 10,
@@ -11,7 +12,7 @@ curl_setopt_array($curl, array(
   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
   CURLOPT_CUSTOMREQUEST => "GET",
   CURLOPT_HTTPHEADER => array(
-    "authorization: Basic JVVTRVJOQU1FJTolUEFTU1dPUkQl"
+    "authorization: Basic ".base64_encode(API_USER.":".API_PASS).""
   ),
 ));
 

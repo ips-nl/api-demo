@@ -1,0 +1,6 @@
+<?php
+
+DEFINE("API_URL", 	"https://mijn.ips.nl/api/");
+DEFINE("API_VERSION",	"v1");
+DEFINE("API_USER", 	"exampleuser@exampledomain.com");
+DEFINE("API_PASS",	"examplepass");
