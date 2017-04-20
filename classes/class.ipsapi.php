@@ -4,16 +4,26 @@ require_once "includes/config.php";
 
 class IPS_Api {
 
+  var $token = null;
+
   public function __construct() {
 
-    $this->connect();
+    $connect = $this->connect();
+    if ($connect !== true)
+      die ("Login failed");
 
   }
 
 
   private function connect() {
     $login = $this->_call("GET", "/authenticate");
-    return $login;
+
+    if (isset($login['data']['token'])) {
+      $this->token = $login['data']['token'];
+      return true;
+    }
+    else
+      return false;
   }
 
 
@@ -48,6 +58,15 @@ class IPS_Api {
 
   private function _call($method, $url, $data = false) {
 
+    if ($this->token === null) {
+      $login = "authorization: Basic ".base64_encode(API_USER.":".API_PASS)."\n";
+    }
+    else {
+      $login = "authorization: ".$this->token."\n";
+    }
+
+    echo $login;
+
     $curl = curl_init();
     curl_setopt_array($curl, array(
         CURLOPT_URL => API_URL.API_VERSION.$url,
@@ -58,7 +77,7 @@ class IPS_Api {
         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
         CURLOPT_CUSTOMREQUEST => $method,
         CURLOPT_HTTPHEADER => array(
-          "authorization: Basic ".base64_encode(API_USER.":".API_PASS).""
+          $login
         ),
       ));
 
