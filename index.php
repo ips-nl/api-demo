@@ -1,5 +1,5 @@
 <?php
-require_once("classes/class.ipsapi.php");
+require_once "classes/class.ipsapi.php";
 
 echo "<pre>";
 $ips = new IPS_Api();
