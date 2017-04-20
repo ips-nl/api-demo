@@ -56,6 +56,149 @@ class IPS_Api {
   }
 
 
+  public function Domains_Autoresponders_GetOne($domainname, $autoresponder) {
+
+    if (!isset($domainname) or empty($domainname) or !isset($autoresponder) or empty($autoresponder)) {
+      return false;
+    }
+    else {
+      $autoresponders = $this->_call("GET", "/domains/".$domainname."/mail_autoresponders/".$autoresponder."/");
+      return $autoresponders;
+    }
+
+  }
+
+
+  public function Domains_DNS_GetAll($domainname) {
+
+    if (!isset($domainname) or empty($domainname)) {
+      return false;
+    }
+    else {
+      $dnsrecords = $this->_call("GET", "/domains/".$domainname."/dns_records/");
+      return $dnsrecords;
+    }
+
+  }
+
+
+  public function Domains_DNS_GetOne($domainname, $record_id) {
+
+    if (!isset($domainname) or empty($domainname) or !isset($record_id) or empty($record_id) or !is_numeric($record_id)) {
+      return false;
+    }
+    else {
+      $dnsrecords = $this->_call("GET", "/domains/".$domainname."/dns_records/".$record_id."/");
+      return $dnsrecords;
+    }
+
+  }
+
+
+  public function Domains_Databases_GetAll($domainname) {
+
+    if (!isset($domainname) or empty($domainname)) {
+      return false;
+    }
+    else {
+      $databases = $this->_call("GET", "/domains/".$domainname."/databases/");
+      return $databases;
+    }
+
+  }
+
+
+  public function Domains_Databases_GetOne($domainname, $database) {
+
+    if (!isset($domainname) or empty($domainname) or !isset($database) or empty($database)) {
+      return false;
+    }
+    else {
+      $databases = $this->_call("GET", "/domains/".$domainname."/databases/".$database."/");
+      return $databases;
+    }
+
+  }
+
+
+  public function Domains_FTPUsers_GetAll($domainname) {
+
+    if (!isset($domainname) or empty($domainname)) {
+      return false;
+    }
+    else {
+      $ftpusers = $this->_call("GET", "/domains/".$domainname."/ftp_users/");
+      return $ftpusers;
+    }
+
+  }
+
+
+  public function Domains_FTPUsers_GetOne($domainname, $ftpuser) {
+
+    if (!isset($domainname) or empty($domainname) or !isset($ftpuser) or empty($ftpuser)) {
+      return false;
+    }
+    else {
+      $ftpusers = $this->_call("GET", "/domains/".$domainname."/ftp_users/".$ftpuser."/");
+      return $ftpusers;
+    }
+
+  }
+
+
+  public function Domains_MailForwards_GetAll($domainname) {
+
+    if (!isset($domainname) or empty($domainname)) {
+      return false;
+    }
+    else {
+      $mailforwards = $this->_call("GET", "/domains/".$domainname."/mail_forwards/");
+      return $mailforwards;
+    }
+
+  }
+
+
+  public function Domains_MailForwards_GetOne($domainname, $mailforward) {
+
+    if (!isset($domainname) or empty($domainname) or !isset($mailforward) or empty($mailforward)) {
+      return false;
+    }
+    else {
+      $mailforwards = $this->_call("GET", "/domains/".$domainname."/mail_forwards/".$mailforward."/");
+      return $mailforwards;
+    }
+
+  }
+
+
+  public function Domains_Mailboxes_GetAll($domainname) {
+
+    if (!isset($domainname) or empty($domainname)) {
+      return false;
+    }
+    else {
+      $mailboxes = $this->_call("GET", "/domains/".$domainname."/mailboxes/");
+      return $mailboxes;
+    }
+
+  }
+
+
+  public function Domains_Mailboxes_GetOne($domainname, $mailbox) {
+
+    if (!isset($domainname) or empty($domainname) or !isset($mailbox) or empty($mailbox)) {
+      return false;
+    }
+    else {
+      $mailboxes = $this->_call("GET", "/domains/".$domainname."/mailboxes/".$mailbox."/");
+      return $mailboxes;
+    }
+
+  }
+
+
   private function _call($method, $url, $data = false) {
 
     if ($this->token === null) {
@@ -64,8 +207,6 @@ class IPS_Api {
     else {
       $login = "authorization: ".$this->token."\n";
     }
-
-    echo $login;
 
     $curl = curl_init();
     curl_setopt_array($curl, array(
