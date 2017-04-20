@@ -49,7 +49,7 @@ class IPS_Api {
       return false;
     }
     else {
-      $autoresponders = $this->_call("GET", "/domains/".$domainname."/mail_autoresponders/");
+      $autoresponders = $this->_call("GET", "/domains/".$domainname."/mail_autoresponders");
       return $autoresponders;
     }
 
@@ -62,7 +62,7 @@ class IPS_Api {
       return false;
     }
     else {
-      $autoresponders = $this->_call("GET", "/domains/".$domainname."/mail_autoresponders/".$autoresponder."/");
+      $autoresponders = $this->_call("GET", "/domains/".$domainname."/mail_autoresponders/".$autoresponder);
       return $autoresponders;
     }
 
@@ -75,7 +75,7 @@ class IPS_Api {
       return false;
     }
     else {
-      $dnsrecords = $this->_call("GET", "/domains/".$domainname."/dns_records/");
+      $dnsrecords = $this->_call("GET", "/domains/".$domainname."/dns_records");
       return $dnsrecords;
     }
 
@@ -88,7 +88,7 @@ class IPS_Api {
       return false;
     }
     else {
-      $dnsrecords = $this->_call("GET", "/domains/".$domainname."/dns_records/".$record_id."/");
+      $dnsrecords = $this->_call("GET", "/domains/".$domainname."/dns_records/".$record_id);
       return $dnsrecords;
     }
 
@@ -101,7 +101,7 @@ class IPS_Api {
       return false;
     }
     else {
-      $databases = $this->_call("GET", "/domains/".$domainname."/databases/");
+      $databases = $this->_call("GET", "/domains/".$domainname."/databases");
       return $databases;
     }
 
@@ -114,7 +114,7 @@ class IPS_Api {
       return false;
     }
     else {
-      $databases = $this->_call("GET", "/domains/".$domainname."/databases/".$database."/");
+      $databases = $this->_call("GET", "/domains/".$domainname."/databases/".$database);
       return $databases;
     }
 
@@ -127,7 +127,7 @@ class IPS_Api {
       return false;
     }
     else {
-      $ftpusers = $this->_call("GET", "/domains/".$domainname."/ftp_users/");
+      $ftpusers = $this->_call("GET", "/domains/".$domainname."/ftp_users");
       return $ftpusers;
     }
 
@@ -140,7 +140,7 @@ class IPS_Api {
       return false;
     }
     else {
-      $ftpusers = $this->_call("GET", "/domains/".$domainname."/ftp_users/".$ftpuser."/");
+      $ftpusers = $this->_call("GET", "/domains/".$domainname."/ftp_users/".$ftpuser);
       return $ftpusers;
     }
 
@@ -153,7 +153,7 @@ class IPS_Api {
       return false;
     }
     else {
-      $mailforwards = $this->_call("GET", "/domains/".$domainname."/mail_forwards/");
+      $mailforwards = $this->_call("GET", "/domains/".$domainname."/mail_forwards");
       return $mailforwards;
     }
 
@@ -166,7 +166,7 @@ class IPS_Api {
       return false;
     }
     else {
-      $mailforwards = $this->_call("GET", "/domains/".$domainname."/mail_forwards/".$mailforward."/");
+      $mailforwards = $this->_call("GET", "/domains/".$domainname."/mail_forwards/".$mailforward);
       return $mailforwards;
     }
 
@@ -179,7 +179,7 @@ class IPS_Api {
       return false;
     }
     else {
-      $mailboxes = $this->_call("GET", "/domains/".$domainname."/mailboxes/");
+      $mailboxes = $this->_call("GET", "/domains/".$domainname."/mailboxes");
       return $mailboxes;
     }
 
@@ -192,12 +192,71 @@ class IPS_Api {
       return false;
     }
     else {
-      $mailboxes = $this->_call("GET", "/domains/".$domainname."/mailboxes/".$mailbox."/");
+      $mailboxes = $this->_call("GET", "/domains/".$domainname."/mailboxes/".$mailbox);
       return $mailboxes;
     }
 
   }
+  
+  
+  public function Products_SharedHosting_GetAll() {
 
+    $sharedhostingproducts = $this->_call("GET", "/products/sharedhosting");
+    return $sharedhostingproducts;
+
+  }
+  
+  public function Products_SSLCertificates_GetAll() {
+
+    $sslcertificates = $this->_call("GET", "/ssl_certificates/types");
+    return $sslcertificates;
+
+  }
+
+  public function Domains_Check_Top5($domainname) {
+
+    if (!isset($domainname) or empty($domainname)) {
+      return false;
+    }
+    else {
+      $domainavailable = $this->_call("GET", "/domain_availability/".$domainname);
+      return $domainavailable;
+    }
+
+  }
+  
+  public function Domains_Check_Top15($domainname) {
+
+    if (!isset($domainname) or empty($domainname)) {
+      return false;
+    }
+    else {
+      $domainavailable = $this->_call("GET", "/domain_availability/".$domainname."/all");
+      return $domainavailable;
+    }
+
+  }
+  
+  public function SSLCertificates_GetAll() {
+
+    $sslcertificates = $this->_call("GET", "/ssl_certificates");
+    return $sslcertificates;
+
+  }
+  
+  
+  public function SSLCertificates_GetOne($record_id) {
+
+    if (!isset($record_id) or empty($record_id) or !is_numeric($record_id)) {
+      return false;
+    }
+    else {
+      $sslcertificates = $this->_call("GET", "/ssl_certificates/".$record_id);
+      return $sslcertificates;
+    }
+
+  }
+  
 
   private function _call($method, $url, $data = false) {
 
