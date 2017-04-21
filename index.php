@@ -47,11 +47,11 @@ var_dump($dnsrecordadd);
 $record_added = $dnsrecordadd['data']['id'];
 
 // UPDATE A DNS RECORD EXAMPLE
-$dnsrecordupdate = $ips->Domains_DNS_UpdateRecord("demodomeinnaam.nl",1344931,"demodomeinnaam.nl","sf02.ips.nl",300,20);
+$dnsrecordupdate = $ips->Domains_DNS_UpdateRecord("demodomeinnaam.nl", 1344931, "demodomeinnaam.nl", "sf02.ips.nl", 300, 20);
 var_dump($dnsrecordupdate);
 
 // DELETE A DNS RECORD EXAMPLE
-$dnsrecorddelete = $ips->Domains_DNS_DeleteRecord("demodomeinnaam.nl",$record_added);
+$dnsrecorddelete = $ips->Domains_DNS_DeleteRecord("demodomeinnaam.nl", $record_added);
 var_dump($dnsrecorddelete);
 
 // GET ALL DATABASES FOR DOMAIN EXAMPLE
@@ -87,11 +87,11 @@ $ftpuseradd = $ips->Domains_FTPUsers_AddUser("demodomeinnaam.nl", "apitest", "yf
 var_dump($ftpuseradd);
 
 // UPDATE A FTP USER EXAMPLE
-$ftpuserupdate = $ips->Domains_FTPUsers_UpdateUser("demodomeinnaam.nl","apitest","test123");
+$ftpuserupdate = $ips->Domains_FTPUsers_UpdateUser("demodomeinnaam.nl", "apitest", "test123");
 var_dump($ftpuserupdate);
 
 // DELETE A FTP USER EXAMPLE
-$ftpuserdelete = $ips->Domains_FTPUsers_DeleteUser("demodomeinnaam.nl","apitest");
+$ftpuserdelete = $ips->Domains_FTPUsers_DeleteUser("demodomeinnaam.nl", "apitest");
 var_dump($ftpuserdelete);
 
 // GET ALL MAIL FORWARDS FOR DOMAIN EXAMPLE
@@ -157,5 +157,50 @@ var_dump($sslcertificates);
 // GET DETAILS OF SSL CERTIFICATE YOU OWN EXAMPLE
 $sslcertificate = $ips->SSLCertificates_GetOne(1);
 var_dump($sslcertificate);
+
+// ORDER EXAMPLE
+$order_products = array();
+$order_products[] = array("domain" => "apitestorder7.nl");
+$order_products[] = array("domain" => "apitestorder8.nl", "code" => "linux-pro-5000");
+$order_products[] = array("domain" => "apitestorder9.nl", "code" => "forward-domain-email", "value" => "www.ips.nl");
+
+$order = $ips->AddOrder(178120, $order_products);
+var_dump($order);
+
+// SSL CERTIFICATE ORDER EXAMPLE
+$contactinfo = array(
+  "company" => "Demo Domeinnaam B.V.",
+  "first_name" => "Demo",
+  "last_name" => "Domeinnaam",
+  "address" => "Stationsplein 45",
+  "postal_code" => "3013AK",
+  "city" => "Rotterdam",
+  "province" => "Zuid-Holland",
+  "country_code" => "NL",
+  "email" => "demodomeinnaam@ips.nl",
+  "phone_number" => "+31.881600600"
+);
+$sslorder = $ips->SSLCertificates_AddOrder("ssl-domain", "demodomeinnaam.nl", $contactinfo);
+var_dump($sslorder);
+
+// SSL CERTIFICATE CANCEL EXAMPLE
+$sslcancel = $ips->SSLCertificates_CancelCertificate(1589);
+var_dump($sslcancel);
+
+// SSL CERTIFICATE DOWNLOAD CSR EXAMPLE
+$ssldownloadcsr = $ips->SSLCertificates_DownloadCertificate(1589, "csr");
+var_dump($ssldownloadcsr);
+
+// SSL CERTIFICATE DOWNLOAD KEY EXAMPLE
+$ssldownloadprivatekey = $ips->SSLCertificates_DownloadCertificate(1589, "private_key");
+var_dump($ssldownloadprivatekey);
+
+// SSL CERTIFICATE DOWNLOAD CRT EXAMPLE
+$ssldownloadcrt = $ips->SSLCertificates_DownloadCertificate(1589, "crt");
+var_dump($ssldownloadcrt);
+
+// SSL CERTIFICATE DOWNLOAD CA_ROOT EXAMPLE
+$ssldownloadcaroot = $ips->SSLCertificates_DownloadCertificate(1589, "ca_root");
+var_dump($ssldownloadcaroot);
 
 echo "</pre>";
