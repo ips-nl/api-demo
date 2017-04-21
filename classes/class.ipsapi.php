@@ -69,6 +69,51 @@ class IPS_Api {
   }
 
 
+  public function Domains_Autoresponders_AddResponder($domainname, $autoresponder, $cc = null, $message) {
+
+    if (!isset($domainname, $autoresponder, $message) or empty($domainname) or empty($autoresponder) or empty($message)) {
+      return false;
+    }
+    else {
+      $postdata = array("account" => $autoresponder, "cc" => $cc, "message" => $message);
+
+      $autoresponders = $this->_call("POST", "/domains/".$domainname."/mail_autoresponders", json_encode($postdata));
+      return $autoresponders;
+    }
+
+  }
+
+
+  public function Domains_Autoresponders_UpdateResponder($domainname, $autoresponder, $cc = null, $message) {
+
+    if (!isset($domainname, $autoresponder, $message) or empty($domainname) or empty($autoresponder) or empty($message)) {
+      return false;
+    }
+    else {
+      $postdata = array("cc" => $cc, "message" => $message);
+
+      echo "/domains/".$domainname."/mail_autoresponders/".urlencode($autoresponder);
+
+      $autoresponders = $this->_call("PUT", "/domains/".$domainname."/mail_autoresponders/".urlencode($autoresponder), json_encode($postdata));
+      return $autoresponders;
+    }
+
+  }
+
+
+  public function Domains_Autoresponders_DeleteResponder($domainname, $autoresponder) {
+
+    if (!isset($domainname, $autoresponder) or empty($domainname) or empty($autoresponder)) {
+      return false;
+    }
+    else {
+      $autoresponders = $this->_call("DELETE", "/domains/".$domainname."/mail_autoresponders/".$autoresponder);
+      return $autoresponders;
+    }
+
+  }
+
+
   public function Domains_DNS_GetAll($domainname) {
 
     if (!isset($domainname) or empty($domainname)) {
@@ -159,6 +204,49 @@ class IPS_Api {
     }
     else {
       $databases = $this->_call("GET", "/domains/".$domainname."/databases/".$database);
+      return $databases;
+    }
+
+  }
+
+
+  public function Domains_Databases_AddDatabase($domainname, $database, $password) {
+
+    if (!isset($domainname, $database, $password) or empty($domainname) or empty($database) or empty($password)) {
+      return false;
+    }
+    else {
+      $postdata = array("database_name" => $database, "password" => $password);
+
+      $databases = $this->_call("POST", "/domains/".$domainname."/databases/", json_encode($postdata));
+      return $databases;
+    }
+
+  }
+
+
+  public function Domains_Databases_UpdateDatabase($domainname, $database, $password) {
+
+    if (!isset($domainname, $database, $password) or empty($domainname) or empty($database) or empty($password)) {
+      return false;
+    }
+    else {
+      $postdata = array("password" => $password);
+
+      $databases = $this->_call("PUT", "/domains/".$domainname."/databases/".$database, json_encode($postdata));
+      return $databases;
+    }
+
+  }
+
+
+  public function Domains_Databases_DeleteDatabase($domainname, $database) {
+
+    if (!isset($domainname, $database) or empty($domainname) or empty($database)) {
+      return false;
+    }
+    else {
+      $databases = $this->_call("DELETE", "/domains/".$domainname."/databases/".$database);
       return $databases;
     }
 
@@ -260,6 +348,49 @@ class IPS_Api {
   }
 
 
+  public function Domains_MailForwards_AddForwarder($domainname, $mailforward, $forwardto) {
+
+    if (!isset($domainname, $mailforward, $forwardto) or empty($domainname) or empty($mailforward) or empty($forwardto)) {
+      return false;
+    }
+    else {
+      $postdata = array("account" => $mailforward, "forward" => $forwardto);
+
+      $mailforwards = $this->_call("POST", "/domains/".$domainname."/mail_forwards", json_encode($postdata));
+      return $mailforwards;
+    }
+
+  }
+
+
+  public function Domains_MailForwards_UpdateForwarder($domainname, $mailforward, $forwardto) {
+
+    if (!isset($domainname, $mailforward, $forwardto) or empty($domainname) or empty($mailforward) or empty($forwardto)) {
+      return false;
+    }
+    else {
+      $postdata = array("forward" => $forwardto);
+
+      $mailforwards = $this->_call("PUT", "/domains/".$domainname."/mail_forwards/".$mailforward, json_encode($postdata));
+      return $mailforwards;
+    }
+
+  }
+
+
+  public function Domains_MailForwards_DeleteForwarder($domainname, $mailforward) {
+
+    if (!isset($domainname, $mailforward) or empty($domainname) or empty($mailforward)) {
+      return false;
+    }
+    else {
+      $mailforwards = $this->_call("DELETE", "/domains/".$domainname."/mail_forwards/".$mailforward);
+      return $mailforwards;
+    }
+
+  }
+
+
   public function Domains_Mailboxes_GetAll($domainname) {
 
     if (!isset($domainname) or empty($domainname)) {
@@ -280,6 +411,49 @@ class IPS_Api {
     }
     else {
       $mailboxes = $this->_call("GET", "/domains/".$domainname."/mailboxes/".$mailbox);
+      return $mailboxes;
+    }
+
+  }
+
+
+  public function Domains_Mailboxes_AddMailbox($domainname, $mailbox, $password) {
+
+    if (!isset($domainname, $mailbox, $password) or empty($domainname) or empty($mailbox) or empty($password)) {
+      return false;
+    }
+    else {
+      $postdata = array("account" => $mailbox, "password" => $password);
+
+      $mailboxes = $this->_call("POST", "/domains/".$domainname."/mailboxes", json_encode($postdata));
+      return $mailboxes;
+    }
+
+  }
+
+
+  public function Domains_Mailboxes_UpdateMailbox($domainname, $mailbox_oldname, $mailbox_newname, $password) {
+
+    if (!isset($domainname, $mailbox_oldname, $mailbox_newname, $password) or empty($domainname) or empty($mailbox_oldname) or empty($mailbox_newname) or empty($password)) {
+      return false;
+    }
+    else {
+      $postdata = array("account" => $mailbox_newname, "password" => $password);
+
+      $mailboxes = $this->_call("PUT", "/domains/".$domainname."/mailboxes/".$mailbox_oldname, json_encode($postdata));
+      return $mailboxes;
+    }
+
+  }
+
+
+  public function Domains_Mailboxes_DeleteMailbox($domainname, $mailbox) {
+
+    if (!isset($domainname, $mailbox) or empty($domainname) or empty($mailbox)) {
+      return false;
+    }
+    else {
+      $mailboxes = $this->_call("DELETE", "/domains/".$domainname."/mailboxes/".$mailbox);
       return $mailboxes;
     }
 
@@ -357,8 +531,6 @@ class IPS_Api {
     else {
       $login = "authorization: ".$this->token;
     }
-
-    print_r($data);
 
     $curl = curl_init();
     curl_setopt_array($curl, array(
