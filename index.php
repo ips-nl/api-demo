@@ -28,6 +28,20 @@ var_dump($dnsrecords);
 $dnsrecord = $ips->Domains_DNS_GetOne("demodomeinnaam.nl", 1344921);
 var_dump($dnsrecord);
 
+// ADD A DNS RECORD EXAMPLE
+$dnsrecordadd = $ips->Domains_DNS_AddRecord("demodomeinnaam.nl", "apitest.demodomeinnaam.nl", "A", "127.0.0.10", 300, null);
+var_dump($dnsrecordadd);
+// SAVE THE ID TO DELETE LATER ON
+$record_added = $dnsrecordadd['data']['id'];
+
+// UPDATE A DNS RECORD EXAMPLE
+$dnsrecordupdate = $ips->Domains_DNS_UpdateRecord("demodomeinnaam.nl",1344931,"demodomeinnaam.nl","sf02.ips.nl",300,20);
+var_dump($dnsrecordupdate);
+
+// DELETE A DNS RECORD EXAMPLE
+$dnsrecorddelete = $ips->Domains_DNS_DeleteRecord("demodomeinnaam.nl",$record_added);
+var_dump($dnsrecorddelete);
+
 // GET ALL DATABASES FOR DOMAIN EXAMPLE
 $databases = $ips->Domains_Databases_GetAll("demodomeinnaam.nl");
 var_dump($databases);
@@ -43,6 +57,15 @@ var_dump($ftpusers);
 // GET DETAILS OF FTP USERS EXAMPLE
 $ftpuser = $ips->Domains_FTPUsers_GetOne("demodomeinnaam.nl", "demodomenl");
 var_dump($ftpuser);
+
+$ftpuseradd = $ips->Domains_FTPUsers_AddUser("demodomeinnaam.nl", "apitest", "yfi6gAH(q9kw9xns", "domain");
+var_dump($ftpuseradd);
+
+$ftpuserupdate = $ips->Domains_FTPUsers_UpdateUser("demodomeinnaam.nl","apitest","test123");
+var_dump($ftpuserupdate);
+
+$ftpuserdelete = $ips->Domains_FTPUsers_DeleteUser("demodomeinnaam.nl","apitest");
+var_dump($ftpuserdelete);
 
 // GET ALL MAIL FORWARDS FOR DOMAIN EXAMPLE
 $ftpusers = $ips->Domains_MailForwards_GetAll("demodomeinnaam.nl");
