@@ -92,8 +92,6 @@ class IPS_Api {
     else {
       $postdata = array("cc" => $cc, "message" => $message);
 
-      echo "/domains/".$domainname."/mail_autoresponders/".urlencode($autoresponder);
-
       $autoresponders = $this->_call("PUT", "/domains/".$domainname."/mail_autoresponders/".urlencode($autoresponder), json_encode($postdata));
       return $autoresponders;
     }
@@ -523,6 +521,69 @@ class IPS_Api {
   }
 
 
+  public function SSLCertificates_AddOrder($code, $domainname, $contact_info) {
+
+    if (!isset($code, $domainname, $contact_info) or !is_array($contact_info)) {
+      return false;
+    }
+    else {
+      $postdata = array("code" => $code, "domain" => $domainname, "contact_info" => $contact_info);
+
+      $sslcertificateorder = $this->_call("POST", "/ssl_certificates", json_encode($postdata));
+      return $sslcertificateorder;
+    }
+
+  }
+
+
+  public function SSLCertificates_CancelCertificate($certificateId) {
+
+    if (!isset($certificateId) or !is_numeric($certificateId)) {
+      return false;
+    }
+    else {
+      $sslcertificatecancallation = $this->_call("DELETE", "/ssl_certificates/".$certificateId);
+      return $sslcertificatecancallation;
+    }
+
+  }
+
+
+  public function SSLCertificates_DownloadCertificate($certificateId, $type) {
+
+    $types = array("csr", "private_key", "crt", "ca_root");
+    if (!isset($certificateId, $type) or !is_numeric($certificateId) or !in_array($type, $types)) {
+      return false;
+    }
+    else {
+      $sslcertificatedownload = $this->_call("GET", "/ssl_certificates/".$certificateId."/download/".$type);
+      return $sslcertificatedownload;
+    }
+
+  }
+
+
+  public function AddOrder($clientID = null, $products) {
+
+    if (!isset($products) or !is_array($products)) {
+      return false;
+    }
+    else {
+
+      if ($clientID !== null && is_numeric($clientID)) {
+        $postdata = array("clientId" => $clientID, "products" => $products);
+      }
+      else {
+        $postdata = array("products" => $products);
+      }
+
+      $order = $this->_call("POST", "/order", json_encode($postdata));
+      return $order;
+    }
+
+  }
+
+
   private function _call($method, $url, $data = false) {
 
     if ($this->token === null) {
@@ -556,7 +617,13 @@ class IPS_Api {
     if ($err) {
       return false;
     } else {
-      return json_decode($response, true);
+      $return = json_decode($response, true);
+      if (json_last_error() == JSON_ERROR_NONE) {
+        return $return;
+      }
+      else {
+        return $response;
+      }
     }
 
   }
