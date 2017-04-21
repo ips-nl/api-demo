@@ -20,6 +20,18 @@ var_dump($autoresponders);
 $autoresponder = $ips->Domains_Autoresponders_GetOne("demodomeinnaam.nl", "ips");
 var_dump($autoresponder);
 
+// ADD AN AUTORESPONDER EXAMPLE
+$autoresponderadd = $ips->Domains_Autoresponders_AddResponder("demodomeinnaam.nl", "apitest", "cc@ips.nl", "Dit is een autoresponder test voor de API");
+var_dump($autoresponderadd);
+
+// UPDATE AN AUTORESPONDER EXAMPLE
+$autoresponderupdate = $ips->Domains_Autoresponders_UpdateResponder("demodomeinnaam.nl", "apitest", "cc2@ips.nl", "Dit is een update autoresponder test voor de API");
+var_dump($autoresponderupdate);
+
+// DELETE AN AUTORESPONDER EXAMPLE
+$autoresponderdelete = $ips->Domains_Autoresponders_DeleteResponder("demodomeinnaam.nl", "apitest");
+var_dump($autoresponderdelete);
+
 // GET ALL DNS RECORDS FOR DOMAINNAME EXAMPLE
 $dnsrecords = $ips->Domains_DNS_GetAll("demodomeinnaam.nl");
 var_dump($dnsrecords);
@@ -50,6 +62,18 @@ var_dump($databases);
 $database = $ips->Domains_Databases_GetOne("demodomeinnaam.nl", "demodomenl_test");
 var_dump($database);
 
+// ADD A DATABASE EXAMPLE
+$databaseadd = $ips->Domains_Databases_AddDatabase("demodomeinnaam.nl", "apide", "demopass");
+var_dump($databaseadd);
+
+// UPDATE A DATABASE EXAMPLE
+$databaseupdate = $ips->Domains_databases_UpdateDatabase("demodomeinnaam.nl", "demodomenl_apide", "otherpass");
+var_dump($databaseupdate);
+
+// DELETE A DATABASE EXAMPLE
+$databasedelete = $ips->Domains_databases_DeleteDatabase("demodomeinnaam.nl", "demodomenl_apide");
+var_dump($databasedelete);
+
 // GET ALL FTP USERS FOR DOMAIN EXAMPLE
 $ftpusers = $ips->Domains_FTPUsers_GetAll("demodomeinnaam.nl");
 var_dump($ftpusers);
@@ -58,12 +82,15 @@ var_dump($ftpusers);
 $ftpuser = $ips->Domains_FTPUsers_GetOne("demodomeinnaam.nl", "demodomenl");
 var_dump($ftpuser);
 
+// ADD A FTP USER EXAMPLE
 $ftpuseradd = $ips->Domains_FTPUsers_AddUser("demodomeinnaam.nl", "apitest", "yfi6gAH(q9kw9xns", "domain");
 var_dump($ftpuseradd);
 
+// UPDATE A FTP USER EXAMPLE
 $ftpuserupdate = $ips->Domains_FTPUsers_UpdateUser("demodomeinnaam.nl","apitest","test123");
 var_dump($ftpuserupdate);
 
+// DELETE A FTP USER EXAMPLE
 $ftpuserdelete = $ips->Domains_FTPUsers_DeleteUser("demodomeinnaam.nl","apitest");
 var_dump($ftpuserdelete);
 
@@ -75,6 +102,18 @@ var_dump($ftpusers);
 $ftpuser = $ips->Domains_MailForwards_GetOne("demodomeinnaam.nl", "test");
 var_dump($ftpuser);
 
+// ADD A MAILFORWARDER EXAMPLE
+$ftpuseradd = $ips->Domains_MailForwards_AddForwarder("demodomeinnaam.nl", "apitest", "email1@ips.nl,email2@ips.nl");
+var_dump($ftpuseradd);
+
+// UPDATE A MAILFORWARDER EXAMPLE
+$ftpuseradd = $ips->Domains_MailForwards_UpdateForwarder("demodomeinnaam.nl", "apitest", "email3@ips.nl,email4@ips.nl");
+var_dump($ftpuseradd);
+
+// DELETE A MAILFORWARDER EXAMPLE
+$ftpuseradd = $ips->Domains_MailForwards_DeleteForwarder("demodomeinnaam.nl", "apitest");
+var_dump($ftpuseradd);
+
 // GET ALL MAILBOXES FOR DOMAIN EXAMPLE
 $mailboxes = $ips->Domains_Mailboxes_GetAll("demodomeinnaam.nl");
 var_dump($mailboxes);
@@ -82,6 +121,18 @@ var_dump($mailboxes);
 // GET DETAILS OF MAILBOXES EXAMPLE
 $mailbox = $ips->Domains_Mailboxes_GetOne("demodomeinnaam.nl", "nagios");
 var_dump($mailbox);
+
+// ADD A MAILBOX EXAMPLE
+$mailboxadd = $ips->Domains_Mailboxes_AddMailbox("demodomeinnaam.nl", "apitest", "pass123");
+var_dump($mailboxadd);
+
+// UPDATE A MAILBOX EXAMPLE
+$mailboxupdate = $ips->Domains_Mailboxes_UpdateMailbox("demodomeinnaam.nl", "apitest", "apitest2", "pass456");
+var_dump($mailboxupdate);
+
+// DELETE A MAILBOX EXAMPLE
+$mailboxdelete = $ips->Domains_Mailboxes_DeleteMailbox("demodomeinnaam.nl", "apitest2");
+var_dump($mailboxdelete);
 
 // GET ALL SHAREDHOSTING PRODUCTS EXAMPLE
 $hostingproducts = $ips->Products_SharedHosting_GetAll();
