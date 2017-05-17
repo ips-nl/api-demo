@@ -33,6 +33,31 @@ class IPS_Api {
     return $clients;
 
   }
+  
+  
+  public function Clients_GetOne($client_id) {
+
+    if (!isset($client_id) or empty($client_id)) {
+      return false;
+    }
+    else {
+      $clients = $this->_call("GET", "/clients/".$client_id);
+      return $clients;
+    }
+
+  }
+  
+  public function Clients_GetSSHKeys($client_id = null) {
+
+    if (!isset($client_id) or empty($client_id) OR $client_id == null) {
+      $sshkeys = $this->_call("GET", "/clients/self/ssh_keys");
+      return $sshkeys;
+    }
+    else {
+      $sshkeys = $this->_call("GET", "/clients/".$client_id."/ssh_keys");
+      return $sshkeys;
+    }
+  }
 
 
   public function Domains_GetAll() {
@@ -464,6 +489,21 @@ class IPS_Api {
     return $sharedhostingproducts;
 
   }
+  
+  public function Products_Servers_GetAll() {
+
+    $serverproducts = $this->_call("GET", "/products/servers");
+    return $serverproducts;
+
+  }
+
+
+public function Products_Servers_GetOperatingSystems() {
+
+    $serveros = $this->_call("GET", "/products/servers/operating_systems");
+    return $serveros;
+
+  }
 
 
   public function Products_SSLCertificates_GetAll() {
@@ -561,6 +601,25 @@ class IPS_Api {
     }
 
   }
+  
+  public function Servers_GetAll() {
+
+    $servers = $this->_call("GET", "/servers");
+    return $servers;
+
+  }
+  
+  public function Servers_GetOne($server_id) {
+
+    if (!isset($server_id) or !is_numeric($server_id)) {
+      return false;
+    }
+    else {
+      $servers = $this->_call("GET", "/servers/".$server_id);
+      return $servers;
+    }
+
+  }
 
 
   public function AddOrder($clientID = null, $products) {
@@ -578,6 +637,23 @@ class IPS_Api {
       }
 
       $order = $this->_call("POST", "/order", json_encode($postdata));
+      return $order;
+    }
+
+  }
+  
+  
+  public function AddServerOrder($hostname, $code, $username, $sshkeys, $os) {
+
+    if (!isset($hostname,$code,$username,$sshkeys,$os) OR !is_array($sshkeys) OR !is_numeric($os) OR empty($hostname) OR empty($code) OR empty($username) OR empty($sshkeys) OR empty($os)) {
+      return false;
+    }
+    else {
+      $postdata = array("hostname" => $hostname, "code" => $code, "username" => $username, "sshKeyIds" => $sshkeys, "configuration" => array("os" => $os));
+      
+      print_r(json_encode($postdata));
+      
+      $order = $this->_call("POST", "/servers", json_encode($postdata));
       return $order;
     }
 
