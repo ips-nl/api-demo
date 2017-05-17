@@ -8,6 +8,18 @@ $ips = new IPS_Api();
 $clients = $ips->Clients_GetALL();
 var_dump($clients);
 
+// GET ONE CLIENT DETAILS EXAMPLE
+$clientsone = $ips->Clients_GetOne(178120);
+var_dump($clientsone);
+
+// GET ALL SSH KEYS FOR MYSELF
+$sshkeys = $ips->Clients_GetSSHKeys();
+var_dump($sshkeys);
+
+// GET ALL SSH KEYS FOR MY CLIENT
+$sshkeys = $ips->Clients_GetSSHKeys(178120);
+var_dump($sshkeys);
+
 // GET ALL DOMAINS EXAMPLE
 $domains = $ips->Domains_GetAll();
 var_dump($domains);
@@ -138,6 +150,14 @@ var_dump($mailboxdelete);
 $hostingproducts = $ips->Products_SharedHosting_GetAll();
 var_dump($hostingproducts);
 
+// GET ALL SERVERS PRODUCTS EXAMPLE
+$serverproducts = $ips->Products_Servers_GetAll();
+var_dump($serverproducts);
+
+// GET ALL SERVERS OPERATING SYSTEMS EXAMPLE
+$serveroses = $ips->Products_Servers_GetOperatingSystems();
+var_dump($serveroses);
+
 // GET ALL SSL CERTIFICATE PRODUCTS EXAMPLE
 $sslproducts = $ips->Products_SSLCertificates_GetAll();
 var_dump($sslproducts);
@@ -157,6 +177,18 @@ var_dump($sslcertificates);
 // GET DETAILS OF SSL CERTIFICATE YOU OWN EXAMPLE
 $sslcertificate = $ips->SSLCertificates_GetOne(1);
 var_dump($sslcertificate);
+
+// GET ALL SERVERS
+$servers = $ips->Servers_GetAll();
+var_dump($servers);
+
+// GET DETAILS OF ONE SERVER
+$server_details = $ips->Servers_GetOne(1779);
+var_dump($server_details);
+
+// ORDER NEW SERVER
+$server_order = $ips->AddServerOrder("demoserver.ips.nl","cloud-server-ssd-4gb","ips",array(2),2);
+var_dump($server_order);
 
 // ORDER EXAMPLE
 $order_products = array();
