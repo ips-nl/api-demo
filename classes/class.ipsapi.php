@@ -651,8 +651,6 @@ public function Products_Servers_GetOperatingSystems() {
     else {
       $postdata = array("hostname" => $hostname, "code" => $code, "username" => $username, "sshKeyIds" => $sshkeys, "configuration" => array("os" => $os));
       
-      print_r(json_encode($postdata));
-      
       $order = $this->_call("POST", "/servers", json_encode($postdata));
       return $order;
     }
